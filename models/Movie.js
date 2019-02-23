@@ -34,14 +34,14 @@ const MovieSchema = new Schema({
       type: Boolean,
       default: false
     },
-    watchedTime: {
+    views: {
       type: Number,
       default: 0
     },
     uploadedByUser: String,
     uploadedDate: {
       type: Date,
-      default: Date.now()
+
     }
 });
 

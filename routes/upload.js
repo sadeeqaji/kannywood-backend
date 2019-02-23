@@ -45,6 +45,7 @@ router.post('/', upload.array('file', 'file'), (req, res) => {
         posterID:  req.files[1].id,
         filename: req.files[0].filename,
         thumbnail: req.files[1].filename,
+        uploadedDate: Date.now(),
         uploadedByUser: "Sadiq Aji"
     });
     console.log(movie)

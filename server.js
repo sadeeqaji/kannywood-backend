@@ -21,6 +21,8 @@ const payment = require('./routes/payment');
 const file = require('./routes/files');
 const upload = require('./routes/upload');
 const movies = require('./routes/movies');
+const cp = require('./routes/cp');
+const watched = require('./routes/watched');
 
 //passport config
 require('./config/passport')(passport);
@@ -82,6 +84,9 @@ app.use('/user', user)
 app.use('/upload', upload)
 app.use('/files', file)
 app.use('/movies', movies)
+app.use('/cp', cp)
+app.use('/watched', watched)
+
 if(process.env.NODE_ENV === 'production'){
   app.use(express.static('client/build'));
   app.get('*', (req, res) => {

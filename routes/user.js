@@ -12,6 +12,10 @@ const {
 } = require('../helpers/auth')
 
 const {
+    ensureUser
+} = require('../helpers/user.js')
+
+const {
     ensureAdmin,
 } = require('../helpers/admin')
 
@@ -27,7 +31,7 @@ router.get('/logout', (req, res) => {
     res.redirect('/user/login');
 })
 
-router.get('/home', ensureAuthenticated, (req, res) => {
+router.get('/home', ensureAuthenticated, ensureUser, (req, res) => {
     res.send("Home")
     console.log(req.user.id)
 })
@@ -58,7 +62,7 @@ router.get('/allusers', (req, res) => {
   })
 })
 
-router.post('/login', passport.authenticate('local', ),
+router.post('/login', passport.authenticate('user', ),
   (req, res) => {
     if(!req.user) {
       res.status(400).send(errors)
@@ -67,12 +71,14 @@ router.post('/login', passport.authenticate('local', ),
     else{
 
     const token =  jwt.sign({
-        email: req.user.email,
-        name: req.user.name,
-        phoneNumber: req.user.phoneNumber,
+        // email: req.user.email,
+        // name: req.user.name,
+        // phoneNumber: req.user.phoneNumber,
         userId: req.user._id,
         isVerify: req.user.IsVerified,
-        isAdmin: req.user.isAdmin
+        isAdmin: req.user.isAdmin,
+        isUser: req.user.isUser,
+
 
       },
       "somekey",

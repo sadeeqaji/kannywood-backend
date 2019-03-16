@@ -32,7 +32,11 @@ const CpSchema = new Schema({
     Subscription: {
         type: Boolean,
         default: false
+    },
+    isCp: {
+      type: Boolean,
+      default: true
     }
 });
 
-module.exports = Cp = mongoose.model('cp',CpSchema)
+module.exports = Cp = mongoose.model('cp', CpSchema)

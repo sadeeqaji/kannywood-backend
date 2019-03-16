@@ -87,12 +87,21 @@ app.use('/movies', movies)
 app.use('/cp', cp)
 app.use('/watched', watched)
 
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static('client/build'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
+// if(process.env.NODE_ENV === 'production'){
+//   app.use(express.static('client/build'));
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+//   });
+// }
+
+app.use(express.static(__dirname + '/public'))
+
+// handle every other route with index.html, which will contain
+// a script tag to your application's JavaScript file(s).
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+})
+
 
 //server
 app.listen(dbconfig.port, () => console.log(`running on port ${dbconfig.port}`))

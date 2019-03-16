@@ -39,6 +39,10 @@ const UserSchema = new Schema({
     Subscription: {
         type: Boolean,
         default: false
+    },
+    isUser: {
+      type: Boolean,
+      default: true
     }
 });
 

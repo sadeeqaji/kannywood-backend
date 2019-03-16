@@ -11,6 +11,14 @@ const {
     ensureAuthenticated,
 } = require('../helpers/auth')
 
+const {
+  ensureCp,
+} = require('../helpers/cpuser.js')
+
+const {
+    ensureAdmin,
+} = require('../helpers/admin')
+
 
 
 router.get('/failure', (req, res) => {
@@ -24,7 +32,7 @@ router.get('/logout', (req, res) => {
     res.redirect('/user/login');
 })
 
-router.get('/home', ensureAuthenticated, (req, res) => {
+router.get('/home', ensureAuthenticated, ensureCp, (req, res) => {
     res.send("Home")
     console.log(req.user.id)
 })
@@ -55,33 +63,31 @@ router.get('/allusers', (req, res) => {
   })
 })
 
-router.post('/login', passport.authenticate('local', ),
+router.post('/login', passport.authenticate('cpuser', ),
   (req, res) => {
     if(!req.user) {
       res.status(400).send(errors)
       console.log(errors)
     }
     else{
-
     const cptoken =  jwt.sign({
-        email: req.user.email,
-        providerName: req.user.providerName,
-        phoneNumber: req.user.phoneNumber,
         userId: req.user._id,
         isVerify: req.user.IsVerified,
+        isCp: req.user.isCp
       },
       "somekey",
       {
         expiresIn: "1d"
       })
-      //console.log(req.user);
+      console.log(req.user);
     res.status(200).send(cptoken)
+
     }
   },
 );
 
 //Register url : user/register
-router.post('/register', (req, res) => {
+router.post('/register', ensureAdmin, (req, res) => {
     let errors = [];
     let failureFlash;
     let success = [];

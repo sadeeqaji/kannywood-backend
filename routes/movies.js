@@ -119,16 +119,6 @@ router.get('/similar/:category', (req, res) => {
   })
 })
 
-//watch time addition
-router.put('/watchedTime/:id', (req, res) => {
-    Movie.findOneAndUpdate({_id: req.params.id}, {$inc: {views: 1}}).then(sucess => {
-      res.send("success")
-    })
-    .catch(err => {
-      res.send(err)
-    })
-});
-
 //deleting single file
 // router.delete('file/:id', (req, res) => {
 //     gfs.files.remove({

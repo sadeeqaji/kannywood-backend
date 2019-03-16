@@ -94,6 +94,7 @@ app.use('/watched', watched)
 //   });
 // }
 
+
 app.use(express.static(__dirname + '/public'))
 
 // handle every other route with index.html, which will contain

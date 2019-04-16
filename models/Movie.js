@@ -38,11 +38,11 @@ const MovieSchema = new Schema({
       type: Number,
       default: 0
     },
-    uploadedByUser: String,
+  
     uploadedDate: {
       type: Date,
-
-    }
+    },
+    uploadedByUserId: String
 });
 
 

@@ -41,12 +41,13 @@ router.post('/', upload.array('file', 'file'), (req, res) => {
         description: req.body.Description,
         category: req.body.Category,
         token: token,
+        uploadedByUserId: req.body.userId,
         fileID:  req.files[0].id,
         posterID:  req.files[1].id,
         filename: req.files[0].filename,
         thumbnail: req.files[1].filename,
         uploadedDate: Date.now(),
-        uploadedByUserId: req.body.userId
+
     });
     console.log(movie)
     movie.save(function(err) {

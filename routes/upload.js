@@ -5,7 +5,7 @@ const path = require('path')
 const router = express.Router();
 const UIDGenerator = require('uid-generator');
 const uidgen = new UIDGenerator();
-
+const passport = require('passport');
 
 // to generate unique token for each uploaded file
 let token;
@@ -22,7 +22,7 @@ const storage = new GridFsStorage({
     file: (req, file) => {
         return {
             filename: req.body.name + path.extname(file.originalname),
-            metadata: {Description: req.body.Description, thumbnail: req.body.name + path.extname(file.originalname)},
+            metadata: {uploadedByUser: req.body.uploadedByUser, Description: req.body.Description, thumbnail: req.body.name + path.extname(file.originalname) }
         };
 
     }
@@ -35,18 +35,21 @@ const upload = multer({
 
 router.post('/', upload.array('file', 'file'), (req, res) => {
     console.log(req.files)
+    console.log(req.body);
+    console.log(req.user);
     metadata: req.body.name
     const movie = new Movie({
+
         MovieName: req.body.name,
         description: req.body.Description,
         category: req.body.Category,
         token: token,
-        uploadedByUserId: req.body.userId,
         fileID:  req.files[0].id,
         posterID:  req.files[1].id,
         filename: req.files[0].filename,
         thumbnail: req.files[1].filename,
         uploadedDate: Date.now(),
+        uploadedByUser: req.body.uploadedByUser
 
     });
     console.log(movie)

@@ -24,6 +24,13 @@ router.get('/all', (req, res) => {
     });
 });
 
+
+router.get('/all/:id', (req, res) => {
+    Movie.find({uploadedByUser: req.params.id}).then(movies => {
+      res.send(movies)
+    });
+});
+
 //getting the list of movies
 router.get('/', (req, res) => {
     Movie.find({isVerifiedVideo: true}).then(movies => {

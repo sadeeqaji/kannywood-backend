@@ -55,7 +55,7 @@ router.get('/payment', (req, res) => {
 });
 
 router.get('/allusers', (req, res) => {
-  Cp.find({}, 'name email phoneNumber IsVerified ').then((result) => {
+  Cp.find({}, 'providerName email phoneNumber IsVerified ').then((result) => {
     res.send(result)
   })
   .catch(err => {
@@ -87,14 +87,6 @@ router.post('/login', passport.authenticate('cpuser', ),
 );
 
 
-router.get('/allusers', (req, res) => {
-  Cp.find({}, ' providerName email phoneNumber IsVerified ').then((result) => {
-    res.send(result)
-  })
-  .catch(err => {
-    res.send(err)
-  })
-})
 
 //Register url : user/register
 router.post('/register', ensureAdmin, (req, res) => {

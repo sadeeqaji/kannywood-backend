@@ -88,7 +88,7 @@ router.post('/login', passport.authenticate('cpuser', ),
 
 
 router.get('/allusers', (req, res) => {
-  Cp.find({}, 'name email phoneNumber IsVerified providerName').then((result) => {
+  Cp.find({}, 'providerName email phoneNumber IsVerified ').then((result) => {
     res.send(result)
   })
   .catch(err => {

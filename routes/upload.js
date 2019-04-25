@@ -34,9 +34,9 @@ const upload = multer({
 // file upload url files/upload
 
 router.post('/', upload.array('file', 'file'), (req, res) => {
-    console.log(req.files)
-    console.log(req.body);
-    console.log(req.user);
+    // console.log(req.files)
+    // console.log(req.body);
+    // console.log(req.user);
     metadata: req.body.name
     const movie = new Movie({
 
@@ -52,7 +52,7 @@ router.post('/', upload.array('file', 'file'), (req, res) => {
         uploadedByUser: req.body.uploadedByUser
 
     });
-    console.log(movie)
+    // console.log(movie)
     movie.save(function(err) {
         if (err) {
             console.log(err);

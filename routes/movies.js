@@ -19,7 +19,9 @@ conn.once('open', function() {
 
 
 router.get('/all', (req, res) => {
-    Movie.find().then(movies => {
+    Movie.find()
+    .populate('uploadedByUser', '-_id -password -DateRegistere -IsVerified -isCp -Subscription')
+    .then(movies => {
       res.send(movies)
     });
 });

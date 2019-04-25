@@ -42,7 +42,10 @@ const MovieSchema = new Schema({
     uploadedDate: {
       type: Date,
     },
-    uploadedByUser: String,
+    uploadedByUser: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'cp'
+    }
 });
 
 

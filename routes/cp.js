@@ -89,7 +89,7 @@ router.post('/login', passport.authenticate('cpuser', ),
 
 
 //Register url : user/register
-router.post('/register', ensureAdmin, (req, res) => {
+router.post('/register', (req, res) => {
     let errors = [];
     let failureFlash;
     let success = [];

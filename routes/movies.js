@@ -126,7 +126,17 @@ router.get('/similar/:category', (req, res) => {
   .catch(err => {
     res.send(err)
   })
-})
+});
+
+//watched times count
+router.put('/views/:id', (req, res) => {
+    Movie.findOneAndUpdate({_id: req.params.id}, {$inc: {views: 1}}).then(sucess => {
+      res.send("success")
+    })
+    .catch(err => {
+      res.send(err)
+    })
+});
 
 //deleting single file
 // router.delete('file/:id', (req, res) => {

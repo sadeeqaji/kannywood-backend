@@ -41,20 +41,6 @@ mongoose.connect(dbconfig.dburl, {
 
 
 
-    const whitelist = ['http://104.248.212.163:5000', 'http://kannywoodtv.live/api']
-    const corsOptions = {
-      origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-          callback(null, true)
-        } else {
-          callback(new Error('Not allowed by CORS'))
-        }
-      }
-    }
-
-    // Then pass them to cors:
-    app.use(cors(corsOptions));
-
 //body parser middleware
 app.use(bodyParser.urlencoded({
     extended: false
@@ -79,7 +65,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //CORS middleware
-
+app.use(cors());
 
 //flash middleware
 app.use(flash());

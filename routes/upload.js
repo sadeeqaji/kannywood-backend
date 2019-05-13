@@ -22,7 +22,7 @@ const storage = new GridFsStorage({
     file: (req, file) => {
         return {
             filename: req.body.name + path.extname(file.originalname),
-            metadata: {uploadedByUser: req.body.uploadedByUser, Description: req.body.Description, thumbnail: req.body.name + path.extname(file.originalname) }
+            // metadata: {uploadedByUser: req.body.uploadedByUser, Description: req.body.Description, thumbnail: req.body.name + path.extname(file.originalname) }
         };
 
     }

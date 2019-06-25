@@ -62,6 +62,9 @@ router.get('/allusers', (req, res) => {
   })
 })
 
+
+
+
 router.post('/login', passport.authenticate('user', ),
   (req, res) => {
     if(!req.user) {
@@ -158,5 +161,28 @@ router.post('/register', (req, res) => {
             });
       }
 });
+
+
+router.get('/profile/:id', (req, res) => {
+    User.findOne({_id: req.params.id})
+    .then((userInfo) => {
+        res.send(userInfo)
+    })
+    .catch((err) => {
+        res.send(err)
+    })
+})
+
+router.put('/profile/edit/:id', (req, res) => {
+    User.findOneAndUpdate({_id: req.params.id}, {name: req.body.name})
+    .then((EditedInfo) => {
+        res.send("Updated successfully")
+    })
+    .catch((err) => {
+        res.send(err)
+    })
+})
+
+
 
 module.exports = router

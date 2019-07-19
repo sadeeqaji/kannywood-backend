@@ -15,6 +15,8 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "compress-images": "^1.5.8",
+    "compression": "^1.7.4",
     "concurrently": "^4.1.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^2.0.3",

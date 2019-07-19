@@ -174,7 +174,13 @@ router.get('/profile/:id', (req, res) => {
 })
 
 router.put('/profile/edit/:id', (req, res) => {
-    User.findOneAndUpdate({_id: req.params.id}, {name: req.body.name})
+    User.findOneAndUpdate({_id: req.params.id}, {$set: 
+        {
+            name: req.body.name,
+          email: req.body.email, 
+          phoneNumber: req.body.phoneNumber
+      }
+  })
     .then((EditedInfo) => {
         res.send("Updated successfully")
     })

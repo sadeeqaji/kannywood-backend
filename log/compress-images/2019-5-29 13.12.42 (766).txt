@@ -1,0 +1,7 @@
+File from: [/home/sadiq/Kannywood/backend/routes/uncompressed/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif}]
+
+File to: [-]
+
+Compression algorithm: [-]
+
+Description:  Directory is empty!: 

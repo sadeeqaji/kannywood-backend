@@ -45,6 +45,9 @@ const MovieSchema = new Schema({
     uploadedByUser: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'cp'
+    }, 
+    size: {
+      type: Number
     }
 });
 

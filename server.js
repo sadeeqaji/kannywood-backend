@@ -7,13 +7,15 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
+var compression = require('compression')
 
 
 const app = express();
 
+
+app.use(compression())
 // importing db configurations
 const dbconfig = require('./config/dbconfig');
-
 
 // importing routes
 const user = require('./routes/user');
@@ -23,6 +25,7 @@ const upload = require('./routes/upload');
 const movies = require('./routes/movies');
 const cp = require('./routes/cp');
 const watched = require('./routes/watched');
+
 
 //passport config
 require('./config/passport')(passport);
@@ -41,11 +44,14 @@ mongoose.connect(dbconfig.dburl, {
 
 
 
+
+    //compression
+
 //body parser middleware
-app.use(bodyParser.urlencoded({
+app.use(express.urlencoded({
     extended: false
 }))
-app.use(bodyParser.json());
+app.use(express.json());
 
 ///Express session middleware
 app.use(session({

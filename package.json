@@ -15,6 +15,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "bootstrap": "^4.3.1",
     "compress-images": "^1.5.8",
     "compression": "^1.7.4",
     "concurrently": "^4.1.0",
@@ -35,6 +36,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "react": "^16.7.0",
+    "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.7.0",
     "redux": "^4.0.1",
     "uid-generator": "^1.0.0",

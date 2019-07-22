@@ -1,0 +1,7 @@
+File from: [/home/sadiq/Kannywood/backend/routes/uncompressed/]
+
+File to: [/home/sadiq/Kannywood/backend/routes/compressedImages]
+
+Compression algorithm: [-]
+
+Description: File does not exist!

@@ -23,7 +23,7 @@ const storage = new GridFsStorage({
     file: (req, file) => {
         console.log("file received", req.files)
         //compress images before saving
-        compressImages(file.originalname);
+        //compressImages(file.originalname);
         return {
             filename: req.body.name + path.extname(file.originalname),
             // metadata: {uploadedByUser: req.body.uploadedByUser, Description: req.body.Description, thumbnail: req.body.name + path.extname(file.originalname) }
@@ -37,9 +37,9 @@ const upload = multer({
 
 // file upload url files/upload
 
-router.post('/', upload.array('file', 'file'), (req, res) => {
-    // console.log(req.files)
-    // console.log(req.body);
+router.post('/', upload.array('file',2), (req, res) => {
+    //  console.log(req.body)
+    // console.log(req.files);
     // console.log(req.user);
     metadata: req.body.name
     const movie = new Movie({
@@ -53,10 +53,11 @@ router.post('/', upload.array('file', 'file'), (req, res) => {
         filename: req.files[0].filename,
         thumbnail: req.files[1].filename,
         uploadedDate: Date.now(),
-        uploadedByUser: req.body.uploadedByUser
+        uploadedByUser: req.body.uploadedByUser,
+        size:  Math.round(req.files[0].size / 1000000) 
 
     });
-    // console.log(movie)
+    console.log(movie)
     movie.save(function(err) {
         if (err) {
             console.log(err);
@@ -80,23 +81,7 @@ router.get('/movies', (req, res) => {
   })
 });
 
-// function compressImages(input) {
-//     console.log("typeof input gotten", 
-//      path.normalize(path.join(__dirname, "../uncompressed/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif}")))
-   
-//     compress_images(path.normalize(path.join(__dirname, "../uncompressed/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif}")),
-//     path.normalize(path.join(__dirname, "../compressedImages/")), { compress_force: false, statistic: true, autoupdate: true }, false,
-//         { jpg: { engine: 'mozjpeg', command: ['-quality', '60'] } },
-//         { png: { engine: 'pngquant', command: ['--quality=20-50'] } },
-//         { svg: { engine: 'svgo', command: '--multipass' } },
-//         { gif: { engine: 'gifsicle', command: ['--colors', '64', '--use-col=web'] } }, function (error, completed, statistic) {
-//             console.log('-------------');
-//             console.log(error);
-//             console.log(completed);
-//             console.log(statistic);
-//             console.log('-------------');
-//         });
-// }
+
 
 
 module.exports = router;

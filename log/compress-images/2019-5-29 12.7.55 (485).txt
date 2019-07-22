@@ -1,0 +1,7 @@
+File from: [INPUT_path_to_your_images]
+
+File to: [OUTPUT_pathINPUT_path_to_your_images]
+
+Compression algorithm: [-]
+
+Description: File does not exist!

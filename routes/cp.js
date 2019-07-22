@@ -156,4 +156,36 @@ router.post('/register', (req, res) => {
       }
 });
 
+
+
+router.get('/profile/:id', (req, res) => {
+    Cp.findOne({_id: req.params.id})
+    .then((userInfo) => {
+        res.send(userInfo)
+    })
+    .catch((err) => {
+        res.send(err)
+    })
+})
+
+
+router.put('/profile/edit/:id', (req, res) => {
+    Cp.findOneAndUpdate({_id: req.params.id}, {$set: 
+        {
+            name: req.body.name,
+            email: req.body.email, 
+            phoneNumber: req.body.phoneNumber,
+            providerName: req.body.providerName
+      }
+  })
+    .then((EditedInfo) => {
+        res.send("Updated successfully")
+    })
+    .catch((err) => {
+        res.send(err)
+    })
+})
+
+
+
 module.exports = router

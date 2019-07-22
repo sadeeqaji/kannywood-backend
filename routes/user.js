@@ -31,7 +31,7 @@ router.get('/logout', (req, res) => {
     res.redirect('/user/login');
 })
 
-router.get('/home', ensureAuthenticated, ensureUser, (req, res) => {
+router.get('/home', ensureAuthenticated, ensureAdmin, (req, res) => {
     res.send("Home")
     console.log(req.user.id)
 })

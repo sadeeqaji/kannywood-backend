@@ -7,13 +7,10 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
-var compression = require('compression')
-
 
 const app = express();
 
 
-app.use(compression())
 // importing db configurations
 const dbconfig = require('./config/dbconfig');
 

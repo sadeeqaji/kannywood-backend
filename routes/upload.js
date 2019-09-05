@@ -21,9 +21,8 @@ const GridFsStorage = require('multer-gridfs-storage');
 const storage = new GridFsStorage({
     url: 'mongodb://127.0.0.1:27017/kannywoodtv-dev',
     file: (req, file) => {
-        console.log("file received", req.files)
-        //compress images before saving
-        //compressImages(file.originalname);
+        //console.log("file received", req.files)
+       
         return {
             filename: req.body.name + path.extname(file.originalname),
             // metadata: {uploadedByUser: req.body.uploadedByUser, Description: req.body.Description, thumbnail: req.body.name + path.extname(file.originalname) }

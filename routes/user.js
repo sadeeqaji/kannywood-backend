@@ -131,7 +131,7 @@ router.post('/register', (req, res) => {
                 if (user) {
                       errors.push({text: "User with this email already exist"})
                       failureFlash: true
-                     res.status(422).send(errors)
+                     res.status(422).send("User with this email already exist")
                 } else {
                     const newUser = new User({
                         name: req.body.name,

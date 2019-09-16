@@ -43,24 +43,20 @@ router.get('/:filename', (req, res) => {
         if (err) {
             res.send(err)
         }
-// console.log(req.headers['range'])
 if(req.headers['range']){
   let  parts = req.headers['range'].replace(/bytes=/, '').split("-");
   var partialstart = parts[0];
   var partialend = parts[1];
-  // console.log(parts[1])
   var start = parseInt(partialstart, 10);
   var end = partialend ? parseInt(partialend, 10) : file[0].length - 1;
   var chunksize = (end - start ) + 1
 
-  // console.log("chunks", chunksize)
   res.writeHead(206, {
     'Content-Range': 'bytes ' + start + '-' + end + '/' + file[0].length,
     'Accept-Ranges': 'bytes',
     'Content-Length': chunksize,
     'Content-Type': file[0].contentType
 });
-// console.log(file[0]._id)
   gfs.createReadStream({_id: file[0]._id,
     range: {
       startPos : start,
@@ -83,8 +79,6 @@ else{
 
 
 });
-
-
 
 router.get('/thumbnail/:filename', (req, res) => {
   gfs.files.find({

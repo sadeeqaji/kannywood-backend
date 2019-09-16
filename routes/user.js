@@ -131,7 +131,7 @@ router.post('/register', (req, res) => {
                 if (user) {
                       errors.push({text: "User with this email already exist"})
                       failureFlash: true
-                     res.send(errors)
+                     res.status(422).send(errors)
                 } else {
                     const newUser = new User({
                         name: req.body.name,
@@ -174,19 +174,14 @@ router.get('/profile/:id', (req, res) => {
 })
 
 router.put('/profile/edit/:id', (req, res) => {
-    User.findOneAndUpdate({_id: req.params.id}, {$set: 
-        {
-            name: req.body.name,
-          email: req.body.email, 
-          phoneNumber: req.body.phoneNumber
-      }
-  })
-    .then((EditedInfo) => {
-        res.send("Updated successfully")
-    })
-    .catch((err) => {
-        res.send(err)
-    })
+   User.findOne({_id: req.params.id}).then((uneditedData) => {
+        console.log(uneditedData)
+        res.send(uneditedData)
+   })
+   .catch((err) => {
+        console.log(err)
+        res.send(uneditedData)
+   })
 })
 
 

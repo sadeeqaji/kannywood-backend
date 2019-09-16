@@ -148,10 +148,10 @@ router.post('/register', (req, res) => {
                                 .save()
                                 .then((user) => {
                                     success.push({text: 'Registered successfully. Confirmation code has been sent to your email'})
-                                    res.send({success: true})
+                                    res.status(200).send({success: true})
                                 })
                                 .catch((err) => {
-                                    req.flash('error_msg', err)
+                                    res.status(500).({text err})
                                     console.log(err)
                                     return
                                 });

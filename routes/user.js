@@ -151,7 +151,7 @@ router.post('/register', (req, res) => {
                                     res.status(200).send({success: true})
                                 })
                                 .catch((err) => {
-                                    res.status(500).({text err})
+                                    res.status(500).send({text, err})
                                     console.log(err)
                                     return
                                 });

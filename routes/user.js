@@ -57,14 +57,10 @@ router.get("/allusers", (req, res) => {
 
 router.post("/login", passport.authenticate("user"), (req, res) => {
   if (!req.user) {
-    res.status(400).send(errors);
-    console.log(errors);
+    res.send({success: false});
   } else {
     const token = jwt.sign(
       {
-        // email: req.user.email,
-        // name: req.user.name,
-        // phoneNumber: req.user.phoneNumber,
         userId: req.user._id,
         isVerify: req.user.IsVerified,
         isAdmin: req.user.isAdmin,
@@ -75,8 +71,7 @@ router.post("/login", passport.authenticate("user"), (req, res) => {
         expiresIn: "1d"
       }
     );
-    //console.log(req.user);
-    res.status(200).send(token);
+    res.send({token, success: true});
   }
 });
 

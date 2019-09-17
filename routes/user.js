@@ -78,9 +78,7 @@ router.post("/login", passport.authenticate("user"), (req, res) => {
 // Register url : user/register
 router.post("/register", (req, res) => {
   let errors = {};
-  let failureFlash;
   let success = [];
-  let successFlash;
   let email = req.body.email;
 
   email.toLowerCase();
@@ -167,7 +165,7 @@ router.put("/profile/edit/:id", (req, res) => {
     }
   )
     .then(EditedInfo => {
-      res.send(EditedInfo);
+      res.send({success: true, EditedInfo});
     })
     .catch(err => {
       res.send(err);

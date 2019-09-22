@@ -156,6 +156,18 @@ router.get("/profile/:id", (req, res) => {
     });
 });
 
+
+
+router.get('/allusers', (req, res) => {
+  User.find({}).then((result) => {
+    res.send(result)
+  })
+  .catch(err => {
+    res.send(err)
+  })
+})
+
+
 router.put("/profile/edit/:id", (req, res) => {
   if (req.body.name !== null) {
     console.log("not null");

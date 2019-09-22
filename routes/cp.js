@@ -159,7 +159,7 @@ router.put("/block/:id", (req, res) => {
         res.send({success: true, message: "User blocked", response})
     })
     .catch(error => {
-        res.send({success: false, error: "Can't blocked the user",})
+        res.send({success: false, error: "Can't blocked the user", error})
     })
   });
   

@@ -47,7 +47,7 @@ router.get("/payment", (req, res) => {
 });
 
 router.get("/allusers", (req, res) => {
-  User.find({}, "name email phoneNumber IsVerified ")
+  User.find()
     .then(result => {
       res.send(result);
     })

@@ -168,6 +168,15 @@ router.get('/allusers', (req, res) => {
 })
 
 
+router.put("/block/:id", (req, res) => {
+  User.findByIdAndUpdate({ _id: req.params.id }, { $set: { isBlocked: true } }).then(response => {
+      res.send({success: true, message: "User blocked", response})
+  })
+  .catch(error => {
+      res.send({success: false, error: "Can't blocked the user",})
+  })
+});
+
 router.put("/profile/edit/:id", (req, res) => {
   if (req.body.name !== null) {
     console.log("not null");

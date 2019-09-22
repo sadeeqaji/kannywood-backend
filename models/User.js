@@ -43,6 +43,10 @@ const UserSchema = new Schema({
     isUser: {
       type: Boolean,
       default: true
+    },
+    isBlocked: {
+        type: Boolean,
+        default: false
     }
 });
 

@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const { ensureAuthenticated } = require("../helpers/auth");
+const {verifyToken} = require("../helpers/VerifyToken")
 
 const { ensureUser } = require("../helpers/user.js");
 
@@ -139,6 +140,11 @@ router.post("/register", (req, res) => {
     });
   }
 });
+
+
+router.get("/verify/:token", verifyToken, (req, res) => {
+    res.send({message:'Authorized',success:true})
+})
 
 router.get("/profile/:id", (req, res) => {
   User.findOne({ _id: req.params.id })

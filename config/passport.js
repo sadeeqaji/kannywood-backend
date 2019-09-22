@@ -50,13 +50,19 @@ module.exports = function(passport) {
                         message: "We couldn't find an account matched to this email"
                     });
                 }
+                else if(user.isBlocked === true){
+                    return done(null, false, {
+                        message: "Your has been blocked. Please contact the site administrator"
+                    })
+                }
                 bcrypt.compare(password, user.password, (err, isMatch) => {
                     if (err)
                         throw err;
                     if (isMatch) {
                         return done(null, user);
                         //console.log(req.body);
-                    } else {
+                    } 
+                    else {
                         return done(null, false, {
                             message: 'Password Incorrect'
                         });

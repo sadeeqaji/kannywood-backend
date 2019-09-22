@@ -36,6 +36,10 @@ const CpSchema = new Schema({
     isCp: {
       type: Boolean,
       default: true
+    },
+    isBlocked: {
+        type: Boolean,
+        default: false
     }
 });
 

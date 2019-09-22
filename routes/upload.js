@@ -40,7 +40,7 @@ router.post('/', upload.array('file',2), (req, res) => {
     //  console.log(req.body)
     // console.log(req.files);
     // console.log(req.user);
-    metadata: req.body.name
+    // metadata: req.body.name
     const movie = new Movie({
 
         MovieName: req.body.name,

@@ -154,12 +154,13 @@ router.get("/profile/:id", (req, res) => {
 });
 
 
+
 router.put("/block/:id", (req, res) => {
     Cp.findByIdAndUpdate({ _id: req.params.id }, { $set: { isBlocked: true } }).then(response => {
         res.send({success: true, message: "User blocked", response})
     })
     .catch(error => {
-        res.send({success: false, error: "Can't blocked the user", error})
+        res.send({success: false, error: "Can't blocked the user"})
     })
   });
   

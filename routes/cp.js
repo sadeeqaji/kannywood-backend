@@ -55,7 +55,7 @@ router.get('/payment', (req, res) => {
 });
 
 router.get('/allusers', (req, res) => {
-  Cp.find({}, 'providerName email phoneNumber IsVerified ').then((result) => {
+  Cp.find().then((result) => {
     res.send(result)
   })
   .catch(err => {

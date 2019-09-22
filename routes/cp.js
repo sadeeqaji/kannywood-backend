@@ -108,7 +108,7 @@ router.post("/register", (req, res) => {
             message: "User with this email already exist"
           });
         } else {
-          const newUser = new User({
+          const newUser = new Cp({
             providerName: req.body.providerName,
             email: email,
             password: req.body.password,

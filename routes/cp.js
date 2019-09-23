@@ -170,9 +170,9 @@ router.put("/block/:id", (req, res) => {
 
 
 router.put("/unblock/:id", (req, res) => {
-    Cp.findByIdAndUpdate({ _id: req.params.id }, { $set: { isBlocked: true } })
+    Cp.findByIdAndUpdate({ _id: req.params.id }, { $set: { isBlocked: false } })
       .then(response => {
-        res.send({ success: true, message: "User blocked", response });
+        res.send({ success: true, message: "User unblocked", response });
       })
       .catch(error => {
         res.send({ success: false, error: "Can't blocked the user" });

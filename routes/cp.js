@@ -58,8 +58,8 @@ router.get("/allusers", (req, res) => {
 router.post("/login", passport.authenticate("cpuser"), (req, res) => {
   let user = req.user;
   if (!req.user) {
-    res.status(400).send(errors);
-    console.log(errors);
+    res.send({success: false, message:errors});
+    // console.log(errors);
   } else {
     const cptoken = jwt.sign(
       {
@@ -72,9 +72,9 @@ router.post("/login", passport.authenticate("cpuser"), (req, res) => {
         expiresIn: "1d"
       }
     );
-    console.log(req.user);
+    // console.log(req.user);
     res.send({
-      token,
+      cptoken,
       success: true,
       isAdmin: user.isAdmin,
       isUser: user.isUser,

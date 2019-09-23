@@ -183,6 +183,17 @@ router.put("/block/:id", (req, res) => {
 });
 
 
+router.put("/unblock/:id", (req, res) => {
+  User.findByIdAndUpdate({ _id: req.params.id }, { $set: { isBlocked: true } })
+    .then(response => {
+      res.send({ success: true, message: "User unblocked", response });
+    })
+    .catch(error => {
+      res.send({ success: false, error: "Can't blocked the user" });
+    });
+});
+
+
 router.put("/admin/:id", (req, res) => {
   User.findByIdAndUpdate({ _id: req.params.id }, { $set: { isAdmin: true, isUser: false } })
     .then(response => {

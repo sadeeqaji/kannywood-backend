@@ -184,7 +184,7 @@ router.put("/block/:id", (req, res) => {
 
 
 router.put("/unblock/:id", (req, res) => {
-  User.findByIdAndUpdate({ _id: req.params.id }, { $set: { isBlocked: true } })
+  User.findByIdAndUpdate({ _id: req.params.id }, { $set: { isBlocked: false } })
     .then(response => {
       res.send({ success: true, message: "User unblocked", response });
     })

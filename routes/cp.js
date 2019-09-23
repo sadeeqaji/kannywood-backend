@@ -55,33 +55,33 @@ router.get("/allusers", (req, res) => {
     });
 });
 
-router.post("/login", passport.authenticate("cpuser"), (req, res) => {
-  let user = req.user;
-  if (!req.user) {
-    res.send({success: false, message:errors});
-    // console.log(errors);
-  } else {
-    const cptoken = jwt.sign(
-      {
-        userId: req.user._id,
-        isVerify: req.user.IsVerified,
-        isCp: req.user.isCp
-      },
-      "somekey",
-      {
-        expiresIn: "1d"
-      }
-    );
-    // console.log(req.user);
-    res.send({
-      cptoken,
-      success: true,
-      isAdmin: user.isAdmin,
-      isUser: user.isUser,
-      isBlocked: user.isBlocked
-    });
-  }
-});
+router.post("/login", passport.authenticate("user"), (req, res) => {
+    let user = req.user;
+    if (!req.user) {
+      res.send({ success: false });
+    } else {
+      const token = jwt.sign(
+        {
+          userId: req.user._id,
+          isVerify: req.user.IsVerified,
+          isAdmin: req.user.isAdmin,
+          isUser: req.user.isUser
+        },
+        "somekey",
+        {
+          expiresIn: "1d"
+        }
+      );
+      res.send({
+        token,
+        success: true,
+        isAdmin: user.isAdmin,
+        isUser: user.isUser,
+        isBlocked: user.isBlocked
+      });
+    }
+  });
+  
 
 //Register url : user/register
 router.post("/register", (req, res) => {

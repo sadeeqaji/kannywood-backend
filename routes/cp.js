@@ -76,7 +76,7 @@ router.post("/login", passport.authenticate("cpuser"), (req, res) => {
         token,
         success: true,
         isAdmin: user.isAdmin,
-        isUser: user.isUser,
+        isCp: user.isCp,
         isBlocked: user.isBlocked
       });
     }

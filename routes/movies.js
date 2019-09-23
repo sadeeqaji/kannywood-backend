@@ -85,7 +85,7 @@ router.delete('/delete/:id', (req, res) => {
     gfs.files.remove({_id: success.posterID})
     .run()
     .then(result => {
-      res.send("sucess").status(200)
+      res.send({success: true, message: "File deleted"}).status(200)
     })
     .catch(err => {
       throw err

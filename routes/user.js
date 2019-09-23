@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const { ensureAuthenticated } = require("../helpers/auth");
-const {verifyToken} = require("../helpers/VerifyToken")
+const { verifyToken } = require("../helpers/VerifyToken");
 
 const { ensureUser } = require("../helpers/user.js");
 
@@ -57,8 +57,9 @@ router.get("/allusers", (req, res) => {
 });
 
 router.post("/login", passport.authenticate("user"), (req, res) => {
+  let user = req.user;
   if (!req.user) {
-    res.send({success: false});
+    res.send({ success: false });
   } else {
     const token = jwt.sign(
       {
@@ -72,7 +73,13 @@ router.post("/login", passport.authenticate("user"), (req, res) => {
         expiresIn: "1d"
       }
     );
-    res.send({token, success: true});
+    res.send({
+      token,
+      success: true,
+      isAdmin: user.isAdmin,
+      isUser: user.isUser,
+      isBlocked: user.isBlocked
+    });
   }
 });
 
@@ -141,10 +148,9 @@ router.post("/register", (req, res) => {
   }
 });
 
-
 router.get("/verify/:token", verifyToken, (req, res) => {
-    res.send({message:'Authorized',success:true})
-})
+  res.send({ message: "Authorized", success: true });
+});
 
 router.get("/profile/:id", (req, res) => {
   User.findOne({ _id: req.params.id })
@@ -156,25 +162,24 @@ router.get("/profile/:id", (req, res) => {
     });
 });
 
-
-
-router.get('/allusers', (req, res) => {
-  User.find({}).then((result) => {
-    res.send(result)
-  })
-  .catch(err => {
-    res.send(err)
-  })
-})
-
+router.get("/allusers", (req, res) => {
+  User.find({})
+    .then(result => {
+      res.send(result);
+    })
+    .catch(err => {
+      res.send(err);
+    });
+});
 
 router.put("/block/:id", (req, res) => {
-  User.findByIdAndUpdate({ _id: req.params.id }, { $set: { isBlocked: true } }).then(response => {
-      res.send({success: true, message: "User blocked", response})
-  })
-  .catch(error => {
-      res.send({success: false, error: "Can't blocked the user"})
-  })
+  User.findByIdAndUpdate({ _id: req.params.id }, { $set: { isBlocked: true } })
+    .then(response => {
+      res.send({ success: true, message: "User blocked", response });
+    })
+    .catch(error => {
+      res.send({ success: false, error: "Can't blocked the user" });
+    });
 });
 
 router.put("/profile/edit/:id", (req, res) => {
@@ -192,7 +197,7 @@ router.put("/profile/edit/:id", (req, res) => {
     }
   )
     .then(EditedInfo => {
-      res.send({success: true, EditedInfo});
+      res.send({ success: true, EditedInfo });
     })
     .catch(err => {
       res.send(err);

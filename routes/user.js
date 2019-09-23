@@ -182,6 +182,18 @@ router.put("/block/:id", (req, res) => {
     });
 });
 
+
+router.put("/admin/:id", (req, res) => {
+  User.findByIdAndUpdate({ _id: req.params.id }, { $set: { isAdmin: true, isUser: false } })
+    .then(response => {
+      res.send({ success: true, message: "User has role is now Admin", response });
+    })
+    .catch(error => {
+      res.send({ success: false, error: "An error occur" });
+    });
+});
+
+
 router.put("/profile/edit/:id", (req, res) => {
   if (req.body.name !== null) {
     console.log("not null");

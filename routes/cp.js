@@ -55,7 +55,7 @@ router.get("/allusers", (req, res) => {
     });
 });
 
-router.post("/login", passport.authenticate("user"), (req, res) => {
+router.post("/login", passport.authenticate("cpuser"), (req, res) => {
     let user = req.user;
     if (!req.user) {
       res.send({ success: false });
@@ -108,7 +108,7 @@ router.post("/register", (req, res) => {
       email: req.body.email
     }).then(user => {
       if (user) {
-        console.log("User exist");
+        // console.log("User exist");
         res.send({
           success: false,
           message: "User with this email already exist"

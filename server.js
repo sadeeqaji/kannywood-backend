@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
-const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const flash = require('connect-flash');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -82,6 +82,9 @@ app.use(function(req, res, next) {
 
 });
 
+
+//Morgan Middleware
+app.use(morgan('dev'));
 
 //routes
 app.use('/user', user)

@@ -78,7 +78,8 @@ router.post("/login", passport.authenticate("user"), (req, res) => {
       success: true,
       isAdmin: user.isAdmin,
       isUser: user.isUser,
-      isBlocked: user.isBlocked
+      isBlocked: user.isBlocked,
+	userDetails: {name: user.name, email: user.email, phoneNumber: user.phoneNumber}
     });
   }
 });

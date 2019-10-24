@@ -79,7 +79,12 @@ router.post("/login", passport.authenticate("user"), (req, res) => {
       isAdmin: user.isAdmin,
       isUser: user.isUser,
       isBlocked: user.isBlocked,
-	userDetails: {name: user.name, email: user.email, phoneNumber: user.phoneNumber}
+      userDetails: {
+        name: user.name,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        Id: user._id
+      }
     });
   }
 });
@@ -183,7 +188,6 @@ router.put("/block/:id", (req, res) => {
     });
 });
 
-
 router.put("/unblock/:id", (req, res) => {
   User.findByIdAndUpdate({ _id: req.params.id }, { $set: { isBlocked: false } })
     .then(response => {
@@ -194,17 +198,22 @@ router.put("/unblock/:id", (req, res) => {
     });
 });
 
-
 router.put("/admin/:id", (req, res) => {
-  User.findByIdAndUpdate({ _id: req.params.id }, { $set: { isAdmin: true, isUser: false } })
+  User.findByIdAndUpdate(
+    { _id: req.params.id },
+    { $set: { isAdmin: true, isUser: false } }
+  )
     .then(response => {
-      res.send({ success: true, message: "User has role is now Admin", response });
+      res.send({
+        success: true,
+        message: "User has role is now Admin",
+        response
+      });
     })
     .catch(error => {
       res.send({ success: false, error: "An error occur" });
     });
 });
-
 
 router.put("/profile/edit/:id", (req, res) => {
   if (req.body.name !== null) {

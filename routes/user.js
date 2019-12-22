@@ -215,26 +215,103 @@ router.put("/admin/:id", (req, res) => {
     });
 });
 
+//Change user detail
 router.put("/profile/edit/:id", (req, res) => {
-  if (req.body.name !== null) {
-    console.log("not null");
-  }
-  User.findOneAndUpdate(
-    { _id: req.params.id },
-    {
-      $set: {
-        name: req.body.name,
-        email: req.body.email,
+  User.findOne({ _id: req.params.id })
+    .then(userData => {
+      let userDetails = {
+        name: req.body.name ? req.body.name : userData.name,
+        email: req.body.email ? req.body.email : userData.email,
         phoneNumber: req.body.phoneNumber
-      }
-    }
-  )
-    .then(EditedInfo => {
-      res.send({ success: true, EditedInfo });
+          ? req.body.phoneNumber
+          : userData.phoneNumber
+      };
+      User.updateOne({ _id: req.params.id }, userDetails)
+        .then(response => {
+          res.send({ success: true, data: userDetails, error: null });
+        })
+        .catch(err => {
+          res.send({ success: false, data: null, error: err });
+        });
     })
     .catch(err => {
-      res.send(err);
+      res.send({ success: false, data: null, error: err });
     });
 });
+
+//Change password
+router.put("/profile/password/:id", (req, res) => {
+  User.findOne({ _id: req.params.id }).then(userData => {
+    bcrypt.compare(
+      req.body.oldPassword,
+      userData.password,
+      (error, matched) => {
+        if (!error && matched) {
+          if (req.body.newPassword === req.body.confirmPassword) {
+            bcrypt.genSalt(10, (err, salt) => {
+              bcrypt.hash(req.body.newPassword, salt, (err, hashedPassword) => {
+                let updated = {
+                  IsVerified: userData.IsVerified,
+                  isAdmin: userData.isAdmin,
+                  isCp: userData.isCp,
+                  Subscription: userData.Subscription,
+                  isUser: userData.isUser,
+                  isBlocked: userData.isBlocked,
+                  _id: userData._id,
+                  name: userData.name,
+                  email: userData.email,
+                  password: hashedPassword,
+                  phoneNumber: userData.phoneNumber
+                };
+                User.updateOne({ _id: req.params.id }, updated).then(
+                  response => {
+                    let userDetails = {
+                      IsVerified: userData.IsVerified,
+                      isAdmin: userData.isAdmin,
+                      isCp: userData.isCp,
+                      Subscription: userData.Subscription,
+                      isUser: userData.isUser,
+                      isBlocked: userData.isBlocked,
+                      _id: userData._id,
+                      name: userData.name,
+                      email: userData.email,
+                      phoneNumber: userData.phoneNumber
+                    };
+                    res.send({
+                      success: true,
+                      data: userDetails,
+                      message: null,
+                      error: null
+                    });
+                  }
+                );
+              });
+            });
+          } else {
+            res.send({
+              success: false,
+              message: "Passwords do not match",
+              error: null
+            });
+          }
+        } else if (!matched) {
+          res.send({
+            success: false,
+            message: "Incorrect password",
+            error: null
+          });
+        } else {
+          res.send({
+            success: false,
+            message: "Internal server error",
+            error: null
+          });
+        }
+      }
+    );
+  });
+});
+
+router.post;
 
 module.exports = router;

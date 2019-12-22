@@ -284,7 +284,13 @@ router.put("/profile/password/:id", (req, res) => {
                       error: null
                     });
                   }
-                );
+                ).catch(error => {
+                  res.send({
+                    success: false,
+                    message: "Internal server error",
+                    error: "Could not find the user with the id specified"
+                  });
+                })
               });
             });
           } else {
@@ -300,18 +306,17 @@ router.put("/profile/password/:id", (req, res) => {
             message: "Incorrect password",
             error: null
           });
-        } else {
-          res.send({
-            success: false,
-            message: "Internal server error",
-            error: null
-          });
         }
       }
     );
-  });
+  }).catch(error => {
+    res.send({
+      success: false,
+      message: "Internal server error",
+      error: "Could not find the user with the id specified"
+    });
+  })
 });
 
-router.post;
 
 module.exports = router;
